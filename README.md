@@ -1,46 +1,47 @@
-# cascoria
+<div align="center">
+  <br />
+  <!-- <img src="" alt="cascoriaLogo" width="30%"/> -->
+  <h1>Cascoria</h1>
+  <p>
+     Description
+  </p>
+</div>
 
-This template should help get you started developing with Vue 3 in Vite.
+<!-- Badges -->
+<div align="center">
+   <a href="https://github.com/phil1436/cascoria/releases">
+       <img src="https://img.shields.io/github/v/release/phil1436/cascoria?display_name=tag" alt="current realease" />
+   </a>
+   <a href="https://github.com/phil1436/cascoria/blob/master/LICENSE">
+       <img src="https://img.shields.io/github/license/phil1436/cascoria" alt="license" />
+   </a>
+   <a href="https://github.com/phil1436/cascoria/stargazers">
+       <img src="https://img.shields.io/github/stars/phil1436/cascoria" alt="stars" />
+   </a>
+   <a href="https://github.com/phil1436/cascoria/commits/master">
+       <img src="https://img.shields.io/github/last-commit/phil1436/cascoria" alt="last commit" />
+   </a>
+</div>
 
-## Recommended IDE Setup
+---
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- [Bugs](#bugs)
+- [Release Notes](#release-notes)
 
-## Type Support for `.vue` Imports in TS
+---
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Bugs
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- _no known bugs_
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+---
 
-## Customize configuration
+## [Release Notes](https://github.com/phil1436/cascoria/blob/master/CHANGELOG.md)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### [v0.0.1](https://github.com/phil1436/cascoria/tree/0.0.1)
 
-## Project Setup
+- _Initial release_
 
-```sh
-npm install
-```
+---
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+by [Philipp B.](https://github.com/phil1436)
