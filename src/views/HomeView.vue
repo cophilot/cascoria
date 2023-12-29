@@ -12,14 +12,14 @@ export default {
 
 <template>
   <h1>Cascoria</h1>
-  <p>
+  <p class="info">
     A score keeping app for the board game
     <a
       href="https://boardgamegeek.com/boardgame/295947/cascadia"
       target="_blank"
       >Cascadia</a
     >
-    🦌🐻🦅🐟🦊 .
+    🦌🐻🦅🐟🦊
   </p>
   <button class="btn" @click="goToTable(1)">1 Player</button>
   <button class="btn" @click="goToTable(2)">2 Player</button>
@@ -30,5 +30,8 @@ export default {
 <style scoped lang="scss">
 h1 {
   margin-bottom: 0px;
+}
+.info {
+  width: 90%;
 }
 </style>

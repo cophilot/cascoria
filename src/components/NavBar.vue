@@ -57,7 +57,7 @@ export default {
       rotate: -8deg;
       margin-top: 0px;
     }
-    &:hover {
+    /* &:hover {
       .logo-name {
         opacity: 1;
         rotate: 0deg;
@@ -65,7 +65,21 @@ export default {
       .logo {
         scale: 1.3;
       }
-    }
+    } */
   }
+}
+
+@media screen and (max-width: 800px) {
+  /* .logo-container {
+    &:hover {
+      .logo-name {
+        opacity: 0.9;
+        rotate: -8deg;
+      }
+      .logo {
+        scale: 1;
+      }
+    }
+  } */
 }
 </style>
