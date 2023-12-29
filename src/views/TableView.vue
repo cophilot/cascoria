@@ -51,8 +51,10 @@ export default {
       this.printing = true;
       setTimeout(() => {
         window.print();
-        this.printing = false;
-      }, 100);
+        setTimeout(() => {
+          this.printing = false;
+        }, 500);
+      }, 500);
     },
     getDate() {
       const date = new Date();
