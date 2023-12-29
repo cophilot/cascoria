@@ -1,9 +1,9 @@
 <div align="center">
   <br />
-  <!-- <img src="" alt="cascoriaLogo" width="30%"/> -->
+  <img src="src/assets/logo.png" alt="cascoria-Logo" width="40%"/>
   <h1>Cascoria</h1>
   <p>
-     Description
+    A score keeping app for the board game Cascadia 🦌🐻🦅🐟🦊
   </p>
 </div>
 
