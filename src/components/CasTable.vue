@@ -32,11 +32,11 @@ export default {
   },
 
   mounted() {
-    const wMatrix = LocalStorageService.get('wMatrix');
-    const hMatrix = LocalStorageService.get('hMatrix');
-    const coneRow = LocalStorageService.get('coneRow');
-    const names = LocalStorageService.get('names');
-    console.log(names);
+    console.log('c' + this.count);
+    const wMatrix = LocalStorageService.get('this.count' + 'wMatrix');
+    const hMatrix = LocalStorageService.get('this.count' + 'hMatrix');
+    const coneRow = LocalStorageService.get('this.count' + 'coneRow');
+    const names = LocalStorageService.get('this.count' + 'names');
     if (wMatrix) {
       this.wMatrix = JSON.parse(wMatrix);
     }
@@ -65,21 +65,33 @@ export default {
     setWMatrix(row: number, player: number, event: Event) {
       this.wMatrix[row - 1][player - 1] =
         parseInt((event.target as HTMLInputElement).value) || 0;
-      LocalStorageService.set('wMatrix', JSON.stringify(this.wMatrix));
+      LocalStorageService.set(
+        'this.count' + 'wMatrix',
+        JSON.stringify(this.wMatrix)
+      );
     },
     setHMatrix(row: number, player: number, event: Event) {
       this.hMatrix[row - 1][player - 1] =
         parseInt((event.target as HTMLInputElement).value) || 0;
-      LocalStorageService.set('hMatrix', JSON.stringify(this.hMatrix));
+      LocalStorageService.set(
+        'this.count' + 'hMatrix',
+        JSON.stringify(this.hMatrix)
+      );
     },
     setConeRow(player: number, event: Event) {
       this.coneRow[player - 1] =
         parseInt((event.target as HTMLInputElement).value) || 0;
-      LocalStorageService.set('coneRow', JSON.stringify(this.coneRow));
+      LocalStorageService.set(
+        'this.count' + 'coneRow',
+        JSON.stringify(this.coneRow)
+      );
     },
     setName(player: number, event: Event) {
       this.names[player - 1] = (event.target as HTMLInputElement).value || '';
-      LocalStorageService.set('names', JSON.stringify(this.names));
+      LocalStorageService.set(
+        'this.count' + 'names',
+        JSON.stringify(this.names)
+      );
     }
   },
   computed: {
@@ -213,7 +225,7 @@ export default {
           <img src="@/assets/icons/wildness.png" alt="W" class="icon" />
         </td>
         <td v-for="n in getWScore" :key="n" class="num-td">
-          {{ n }}
+          <input type="number" class="my-input" :value="n" disabled />
         </td>
       </tr>
       <!-- --- -->
@@ -234,6 +246,7 @@ export default {
             @input="setHMatrix(1, n, $event)"
             :value="hMatrix[0][n - 1]"
           />
+          <!-- <p class="bonus">+4</p> -->
         </td>
       </tr>
       <tr>
@@ -301,7 +314,7 @@ export default {
           <img src="@/assets/icons/hectare.png" alt="H" class="icon" />
         </td>
         <td v-for="n in getHScore" :key="n" class="num-td">
-          {{ n }}
+          <input type="number" class="my-input" :value="n" disabled />
         </td>
       </tr>
       <tr class="sub-divider">
@@ -328,7 +341,7 @@ export default {
           />
         </td>
         <td v-for="n in getTotalScore" :key="n" class="num-td">
-          {{ n }}
+          <input type="number" class="my-input" :value="n" disabled />
         </td>
       </tr>
     </table>
@@ -346,6 +359,7 @@ export default {
   text-align: center;
   // remove arrows
   -moz-appearance: textfield;
+  appearance: textfield;
 
   &:focus {
     outline: none;
@@ -386,5 +400,14 @@ tr:last-child td {
 }
 .sub-divider {
   border-bottom: 2px solid $prim-color;
+}
+.bonus {
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+  margin-bottom: -15px;
+  opacity: 0.5;
+  max-width: 20px;
+  margin-left: 18px;
 }
 </style>
