@@ -61,13 +61,14 @@ export default {
 
       setTimeout(() => {
         window.print();
+
         setTimeout(() => {
           this.printing = false;
           Array.prototype.forEach.call(els, function (el: any, i: number) {
             el.style.display = displayBefore[i];
           });
-        }, 500);
-      }, 500);
+        }, 1000);
+      }, 700);
     },
     getDate() {
       const date = new Date();

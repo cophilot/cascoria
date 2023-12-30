@@ -26,9 +26,25 @@ export default {
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0]
       ],
+      bonusMatrix: [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ],
       coneRow: [0, 0, 0, 0, 0, 0],
       names: ['', '', '', '', '', '']
     };
+  },
+  watch: {
+    hMatrix: {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      handler: function (_val: any) {
+        this.updateBonusMatrix();
+      },
+      deep: true
+    }
   },
 
   mounted() {
@@ -113,6 +129,34 @@ export default {
     setName(player: number, event: Event) {
       this.names[player - 1] = (event.target as HTMLInputElement).value || '';
       LocalStorageService.set(this.count + 'names', JSON.stringify(this.names));
+    },
+
+    updateBonusMatrix() {
+      if (this.count == 1) {
+        let result = [];
+        for (let e of this.hMatrix) {
+          result.push(e[0] >= 7 ? [2] : [0]);
+        }
+        this.bonusMatrix = result;
+        return;
+      }
+      if (this.count == 2) {
+        let result = [];
+        for (let e of this.hMatrix) {
+          if (e[0] > e[1]) {
+            result.push([2, 0]);
+          } else if (e[0] < e[1]) {
+            result.push([0, 2]);
+          } else if (e[0] != 0 && 0 != e[1]) {
+            result.push([1, 1]);
+          } else {
+            result.push([0, 0]);
+          }
+        }
+        this.bonusMatrix = result;
+        console.log(this.bonusMatrix);
+        return;
+      }
     }
   },
   computed: {
@@ -132,42 +176,13 @@ export default {
       for (let i = 0; i < this.count; i++) {
         let sum = 0;
         for (let j = 0; j < 5; j++) {
-          sum += this.hMatrix[j][i];
+          sum += this.hMatrix[j][i] + this.bonusMatrix[j][i];
         }
         result.push(sum);
       }
       return result;
     },
-    getBonusMatrix() {
-      if (this.count == 1) {
-        let result = [];
-        for (let e of this.wMatrix) {
-          result.push(e[0] >= 7 ? [2] : [0]);
-        }
-        console.log(result);
-        return result;
-      }
-      if (this.count == 2) {
-        let result = [];
-        for (let e of this.wMatrix) {
-          if (e[0] > e[1]) {
-            result.push([2, 0]);
-          } else if (e[0] < e[1]) {
-            result.push([0, 2]);
-          } else {
-            result.push([1, 1]);
-          }
-        }
-        return result;
-      }
-      return [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0]
-      ];
-    },
+
     getTotalScore() {
       const result = [];
       for (let i = 0; i < this.count; i++) {
@@ -298,7 +313,11 @@ export default {
             :value="hMatrix[0][n - 1] == 0 ? '' : hMatrix[0][n - 1]"
           />
           <p class="bonus">
-            {{ '+' + getBonusMatrix[0][n - 1] }}
+            {{
+              (bonusMatrix[0][n - 1] || 0) == 0
+                ? ''
+                : '+' + bonusMatrix[0][n - 1]
+            }}
           </p>
         </td>
       </tr>
@@ -315,6 +334,13 @@ export default {
             @input="setHMatrix(2, n, $event)"
             :value="hMatrix[1][n - 1] == 0 ? '' : hMatrix[1][n - 1]"
           />
+          <p class="bonus">
+            {{
+              (bonusMatrix[1][n - 1] || 0) == 0
+                ? ''
+                : '+' + bonusMatrix[1][n - 1]
+            }}
+          </p>
         </td>
       </tr>
       <tr>
@@ -330,6 +356,13 @@ export default {
             @input="setHMatrix(3, n, $event)"
             :value="hMatrix[2][n - 1] == 0 ? '' : hMatrix[2][n - 1]"
           />
+          <p class="bonus">
+            {{
+              (bonusMatrix[2][n - 1] || 0) == 0
+                ? ''
+                : '+' + bonusMatrix[2][n - 1]
+            }}
+          </p>
         </td>
       </tr>
       <tr>
@@ -345,6 +378,13 @@ export default {
             @input="setHMatrix(4, n, $event)"
             :value="hMatrix[3][n - 1] == 0 ? '' : hMatrix[3][n - 1]"
           />
+          <p class="bonus">
+            {{
+              (bonusMatrix[3][n - 1] || 0) == 0
+                ? ''
+                : '+' + bonusMatrix[3][n - 1]
+            }}
+          </p>
         </td>
       </tr>
       <tr>
@@ -360,6 +400,13 @@ export default {
             @input="setHMatrix(5, n, $event)"
             :value="hMatrix[4][n - 1] == 0 ? '' : hMatrix[4][n - 1]"
           />
+          <p class="bonus">
+            {{
+              (bonusMatrix[4][n - 1] || 0) == 0
+                ? ''
+                : '+' + bonusMatrix[4][n - 1]
+            }}
+          </p>
         </td>
       </tr>
       <tr class="sub-divider sub-score">
@@ -491,5 +538,6 @@ tr {
   background-color: $bg-color;
   border-bottom: 2px solid $prim-color;
   border-top: 2px solid $prim-color;
+  z-index: 100;
 }
 </style>

@@ -15,7 +15,7 @@ export default {
 
 <template>
   <nav class="navbar print-off">
-    <MyLogo></MyLogo>
+    <MyLogo @click="goToHome"></MyLogo>
   </nav>
 </template>
 
