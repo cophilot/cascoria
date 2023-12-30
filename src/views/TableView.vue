@@ -1,10 +1,12 @@
 <script lang="ts">
 import CasTable from '@/components/CasTable.vue';
+import MyLogo from '@/components/MyLogo.vue';
 
 export default {
   name: 'TableView',
   components: {
-    CasTable
+    CasTable,
+    MyLogo
   },
   data() {
     return {
@@ -49,10 +51,21 @@ export default {
     },
     saveAsPDF() {
       this.printing = true;
+
+      const els = document.getElementsByClassName('print-off');
+      const displayBefore: any[] = [];
+      Array.prototype.forEach.call(els, function (el: any) {
+        displayBefore.push(el.style.display);
+        el.style.display = 'none';
+      });
+
       setTimeout(() => {
         window.print();
         setTimeout(() => {
           this.printing = false;
+          Array.prototype.forEach.call(els, function (el: any, i: number) {
+            el.style.display = displayBefore[i];
+          });
         }, 500);
       }, 500);
     },
@@ -71,6 +84,7 @@ export default {
 <template>
   <div>
     <h1 v-if="!printing">{{ count }} Player</h1>
+    <MyLogo v-if="printing"></MyLogo>
     <h1 v-if="printing">{{ getDate() }}</h1>
     <div class="container">
       <CasTable :count="count" />

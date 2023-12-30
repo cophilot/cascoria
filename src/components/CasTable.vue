@@ -142,8 +142,9 @@ export default {
       if (this.count == 1) {
         let result = [];
         for (let e of this.wMatrix) {
-          result.push(e[0] >= 7 ? 2 : 0);
+          result.push(e[0] >= 7 ? [2] : [0]);
         }
+        console.log(result);
         return result;
       }
       if (this.count == 2) {
@@ -159,7 +160,13 @@ export default {
         }
         return result;
       }
-      return [];
+      return [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ];
     },
     getTotalScore() {
       const result = [];
@@ -175,13 +182,13 @@ export default {
 <template>
   <div>
     <table>
-      <tr class="sub-divider">
+      <tr class="sticky">
         <td class="num-td"></td>
         <td v-for="n in getArray()" :key="'n' + n" class="num-td">
           <input
             type="text"
             :placeholder="'P' + n"
-            class="my-input"
+            class="my-input name-input"
             @input="setName(n, $event)"
             :value="names[n - 1]"
           />
@@ -282,17 +289,17 @@ export default {
           />
         </td>
         <td v-for="n in getArray()" :key="'h1' + n" class="num-td">
-          <div class="bonus-box">
-            <input
-              type="number"
-              placeholder="0"
-              class="my-input"
-              :id="'h1' + n"
-              @input="setHMatrix(1, n, $event)"
-              :value="hMatrix[0][n - 1] == 0 ? '' : hMatrix[0][n - 1]"
-            />
-            <p class="bonus">+4</p>
-          </div>
+          <input
+            type="number"
+            placeholder="0"
+            class="my-input"
+            :id="'h1' + n"
+            @input="setHMatrix(1, n, $event)"
+            :value="hMatrix[0][n - 1] == 0 ? '' : hMatrix[0][n - 1]"
+          />
+          <p class="bonus">
+            {{ '+' + getBonusMatrix[0][n - 1] }}
+          </p>
         </td>
       </tr>
       <tr>
@@ -393,7 +400,7 @@ export default {
       </tr>
     </table>
   </div>
-  <button class="btn reset-btn" @click="reset()">Reset</button>
+  <button class="btn reset-btn print-off" @click="reset()">Reset</button>
 </template>
 
 <style scoped lang="scss">
@@ -412,11 +419,13 @@ export default {
   // remove arrows
   -moz-appearance: textfield;
   appearance: textfield;
+  z-index: 10;
 
   &:focus {
     outline: none;
   }
 }
+
 .icon {
   height: 75px;
   margin: -2px;
@@ -425,23 +434,29 @@ export default {
   align-items: center;
 }
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
   border: 2px solid $prim-color;
   margin: 0 auto;
   max-width: 95%;
+  border-collapse: separate; /* Don't collapse */
+  border-spacing: 0;
 }
 .icon-td {
   border-bottom: 1px solid #ccc;
   text-align: center;
 }
 .num-td {
-  padding: 15px;
+  padding: auto;
   border-bottom: 1px solid #ccc;
   text-align: center;
 }
 tr:last-child td {
   border-bottom: 0;
+}
+
+tr {
+  td:last-child {
+    padding-right: 15px;
+  }
 }
 
 .final-score {
@@ -452,13 +467,9 @@ tr:last-child td {
 }
 .sub-divider {
   border-bottom: 2px solid $prim-color;
+  border-collapse: separate; /* Don't collapse */
 }
-.bonus-box {
-  /*  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column; */
-}
+
 .bonus {
   font-size: 16px;
   padding: 0;
@@ -471,5 +482,14 @@ tr:last-child td {
   text-align: center;
   padding-left: 25px;
   margin-top: -15px;
+  z-index: 1;
+}
+
+.sticky {
+  position: sticky;
+  top: 80px;
+  background-color: $bg-color;
+  border-bottom: 2px solid $prim-color;
+  border-top: 2px solid $prim-color;
 }
 </style>

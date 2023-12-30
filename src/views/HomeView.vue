@@ -24,8 +24,8 @@ export default {
   <button class="btn" @click="goToTable(2)">2 Player</button>
   <button class="btn" @click="goToTable(3)">3 Player</button>
   <button class="btn" @click="goToTable(4)">4 Player</button>
-  <button class="btn" @click="goToTable(5)">5 Player</button>
-  <button class="btn" @click="goToTable(6)">6 Player</button>
+  <!--  <button class="btn" @click="goToTable(5)">5 Player</button>
+  <button class="btn" @click="goToTable(6)">6 Player</button> -->
   <p>By <a href="https://github.com/phil1436" target="_blank">Philipp B.</a></p>
 </template>
 <style scoped lang="scss">
