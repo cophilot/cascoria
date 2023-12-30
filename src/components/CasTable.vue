@@ -132,8 +132,10 @@ export default {
     },
 
     updateBonusMatrix() {
+      const result = [];
+
       if (this.count == 1) {
-        let result = [];
+        // 1 player
         for (let e of this.hMatrix) {
           result.push(e[0] >= 7 ? [2] : [0]);
         }
@@ -141,7 +143,7 @@ export default {
         return;
       }
       if (this.count == 2) {
-        let result = [];
+        // 2 players
         for (let e of this.hMatrix) {
           if (e[0] > e[1]) {
             result.push([2, 0]);
@@ -154,9 +156,60 @@ export default {
           }
         }
         this.bonusMatrix = result;
-        console.log(this.bonusMatrix);
         return;
       }
+      // 3+ players
+      for (let e of this.hMatrix) {
+        let highest = 0;
+        let secondHighest = 0;
+        for (let i = 0; i < e.length; i++) {
+          if (e[i] > highest) {
+            secondHighest = highest;
+            highest = e[i];
+          } else if (e[i] > secondHighest) {
+            secondHighest = e[i];
+          }
+        }
+        if (highest == 0) {
+          result.push([0, 0, 0, 0, 0]);
+          continue;
+        }
+
+        let highestCount = 0;
+        let secondHighestCount = 0;
+        for (let i = 0; i < e.length; i++) {
+          if (e[i] == highest) {
+            highestCount++;
+          }
+          if (e[i] == secondHighest) {
+            secondHighestCount++;
+          }
+        }
+        let highestBonus = 0;
+        let secondHighestBonus = 0;
+        if (highestCount == 1) {
+          highestBonus = 3;
+          if (secondHighestCount == 1 && secondHighest != 0) {
+            secondHighestBonus = 1;
+          }
+        } else if (highestCount == 2) {
+          highestBonus = 2;
+        } else if (highestCount > 2) {
+          highestBonus = 1;
+        }
+        let row = [];
+        for (let i = 0; i < e.length; i++) {
+          if (e[i] == highest) {
+            row.push(highestBonus);
+          } else if (e[i] == secondHighest) {
+            row.push(secondHighestBonus);
+          } else {
+            row.push(0);
+          }
+        }
+        result.push(row);
+      }
+      this.bonusMatrix = result;
     }
   },
   computed: {
@@ -289,7 +342,7 @@ export default {
         <td class="icon-td">
           <img src="@/assets/icons/wildness.png" alt="W" class="icon" />
         </td>
-        <td v-for="n in getWScore" :key="'W' + n" class="num-td">
+        <td v-for="(n, i) in getWScore" :key="'W' + i" class="num-td">
           <input type="number" class="my-input" :value="n" disabled />
         </td>
       </tr>
@@ -312,12 +365,13 @@ export default {
             @input="setHMatrix(1, n, $event)"
             :value="hMatrix[0][n - 1] == 0 ? '' : hMatrix[0][n - 1]"
           />
-          <p class="bonus">
-            {{
-              (bonusMatrix[0][n - 1] || 0) == 0
-                ? ''
-                : '+' + bonusMatrix[0][n - 1]
-            }}
+          <p
+            class="bonus"
+            :style="{
+              opacity: bonusMatrix[0][n - 1] == 0 ? '0' : '0.6'
+            }"
+          >
+            {{ '+' + bonusMatrix[0][n - 1] }}
           </p>
         </td>
       </tr>
@@ -334,12 +388,13 @@ export default {
             @input="setHMatrix(2, n, $event)"
             :value="hMatrix[1][n - 1] == 0 ? '' : hMatrix[1][n - 1]"
           />
-          <p class="bonus">
-            {{
-              (bonusMatrix[1][n - 1] || 0) == 0
-                ? ''
-                : '+' + bonusMatrix[1][n - 1]
-            }}
+          <p
+            class="bonus"
+            :style="{
+              opacity: bonusMatrix[1][n - 1] == 0 ? '0' : '0.6'
+            }"
+          >
+            {{ '+' + bonusMatrix[1][n - 1] }}
           </p>
         </td>
       </tr>
@@ -356,12 +411,13 @@ export default {
             @input="setHMatrix(3, n, $event)"
             :value="hMatrix[2][n - 1] == 0 ? '' : hMatrix[2][n - 1]"
           />
-          <p class="bonus">
-            {{
-              (bonusMatrix[2][n - 1] || 0) == 0
-                ? ''
-                : '+' + bonusMatrix[2][n - 1]
-            }}
+          <p
+            class="bonus"
+            :style="{
+              opacity: bonusMatrix[2][n - 1] == 0 ? '0' : '0.6'
+            }"
+          >
+            {{ '+' + bonusMatrix[2][n - 1] }}
           </p>
         </td>
       </tr>
@@ -378,12 +434,13 @@ export default {
             @input="setHMatrix(4, n, $event)"
             :value="hMatrix[3][n - 1] == 0 ? '' : hMatrix[3][n - 1]"
           />
-          <p class="bonus">
-            {{
-              (bonusMatrix[3][n - 1] || 0) == 0
-                ? ''
-                : '+' + bonusMatrix[3][n - 1]
-            }}
+          <p
+            class="bonus"
+            :style="{
+              opacity: bonusMatrix[3][n - 1] == 0 ? '0' : '0.6'
+            }"
+          >
+            {{ '+' + bonusMatrix[3][n - 1] }}
           </p>
         </td>
       </tr>
@@ -400,12 +457,13 @@ export default {
             @input="setHMatrix(5, n, $event)"
             :value="hMatrix[4][n - 1] == 0 ? '' : hMatrix[4][n - 1]"
           />
-          <p class="bonus">
-            {{
-              (bonusMatrix[4][n - 1] || 0) == 0
-                ? ''
-                : '+' + bonusMatrix[4][n - 1]
-            }}
+          <p
+            class="bonus"
+            :style="{
+              opacity: bonusMatrix[4][n - 1] == 0 ? '0' : '0.6'
+            }"
+          >
+            {{ '+' + bonusMatrix[4][n - 1] }}
           </p>
         </td>
       </tr>
@@ -413,7 +471,7 @@ export default {
         <td class="icon-td">
           <img src="@/assets/icons/hectare.png" alt="H" class="icon" />
         </td>
-        <td v-for="n in getHScore" :key="'H' + n" class="num-td">
+        <td v-for="(n, i) in getHScore" :key="'H' + i" class="num-td">
           <input type="number" class="my-input" :value="n" disabled />
         </td>
       </tr>
@@ -441,7 +499,7 @@ export default {
             class="icon"
           />
         </td>
-        <td v-for="n in getTotalScore" :key="'F' + n" class="num-td">
+        <td v-for="(n, i) in getTotalScore" :key="'F' + i" class="num-td">
           <input type="number" class="my-input" :value="n" disabled />
         </td>
       </tr>
@@ -521,7 +579,8 @@ tr {
   font-size: 16px;
   padding: 0;
   margin: 0;
-  opacity: 0.5;
+  line-height: 16px;
+  min-height: 16px;
   width: 100%;
   height: 100%;
   border: none;
