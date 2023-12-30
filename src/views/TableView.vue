@@ -84,7 +84,7 @@ export default {
 <template>
   <div>
     <h1 v-if="!printing">{{ count }} Player</h1>
-    <MyLogo v-if="printing"></MyLogo>
+    <MyLogo v-if="printing" color="black" :big="true"></MyLogo>
     <h1 v-if="printing">{{ getDate() }}</h1>
     <div class="container">
       <CasTable :count="count" />
