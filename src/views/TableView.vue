@@ -21,7 +21,7 @@ export default {
       !count ||
       isNaN(parseInt(count)) ||
       parseInt(count) < 1 ||
-      parseInt(count) > 4
+      parseInt(count) > 6
     ) {
       this.$router.push({ name: 'home' });
     } else {
@@ -95,9 +95,5 @@ export default {
   .home-btn {
     margin-bottom: 50px;
   }
-}
-
-.btn-container {
-  margin-top: 50px;
 }
 </style>
