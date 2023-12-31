@@ -22,4 +22,8 @@
 
 ---
 
+This project was created with [Vue.js 3](https://v3.vuejs.org/) and [Vite](https://vitejs.dev/).
+
+---
+
 by [Philipp B.](https://github.com/phil1436)

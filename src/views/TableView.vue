@@ -60,15 +60,28 @@ export default {
       });
 
       setTimeout(() => {
-        window.print();
+        // get the html
+        const html = document.documentElement.outerHTML;
+        // create a new window
+        const win = window.open('', 'printwindow');
+        if (!win) {
+          alert('Please allow popups for this website');
+          return;
+        }
+        // write the html to the window
+        win.document.write(html);
+        // print the window
+        win.print();
 
+        // close the window
+        win.close();
         setTimeout(() => {
           this.printing = false;
           Array.prototype.forEach.call(els, function (el: any, i: number) {
             el.style.display = displayBefore[i];
           });
-        }, 1000);
-      }, 700);
+        }, 500);
+      }, 500);
     },
     getDate() {
       const date = new Date();

@@ -250,7 +250,7 @@ export default {
 <template>
   <div>
     <table>
-      <tr class="sticky">
+      <tr class="sticky name-row">
         <td class="num-td"></td>
         <td v-for="n in getArray()" :key="'n' + n" class="num-td">
           <input
@@ -598,5 +598,10 @@ tr {
   border-bottom: 2px solid $prim-color;
   border-top: 2px solid $prim-color;
   z-index: 100;
+}
+.name-row {
+  height: 60px;
+}
+.inline-name-row {
 }
 </style>
