@@ -33,6 +33,10 @@ p {
   text-align: center;
 }
 
+.print-only {
+  display: none;
+}
+
 .btn {
   background-color: $prim-color;
   color: white;

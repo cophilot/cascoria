@@ -52,11 +52,16 @@ export default {
     saveAsPDF() {
       this.printing = true;
 
-      const els = document.getElementsByClassName('print-off');
+      const elOff = document.getElementsByClassName('print-off');
       const displayBefore: any[] = [];
-      Array.prototype.forEach.call(els, function (el: any) {
+      Array.prototype.forEach.call(elOff, function (el: any) {
         displayBefore.push(el.style.display);
         el.style.display = 'none';
+      });
+
+      const elOn = document.getElementsByClassName('print-only');
+      Array.prototype.forEach.call(elOn, function (el: any) {
+        el.style.display = 'block';
       });
 
       setTimeout(() => {
@@ -77,8 +82,11 @@ export default {
         win.close();
         setTimeout(() => {
           this.printing = false;
-          Array.prototype.forEach.call(els, function (el: any, i: number) {
+          Array.prototype.forEach.call(elOff, function (el: any, i: number) {
             el.style.display = displayBefore[i];
+          });
+          Array.prototype.forEach.call(elOn, function (el: any) {
+            el.style.display = 'none';
           });
         }, 500);
       }, 500);
@@ -102,7 +110,7 @@ export default {
     <h1 v-if="printing">{{ getDate() }}</h1>
     <div class="container">
       <CasTable :count="count" />
-      <h2 v-if="printing">cascoria.philipp-bonin.com</h2>
+      <h2 v-if="printing" class="url">cascoria.philipp-bonin.com</h2>
       <div class="btn-container" v-if="!printing">
         <button class="btn" @click="saveAsPDF()">Save as PDF</button>
         <button class="btn" @click="saveAsExcel()">Save as Excel</button>
@@ -123,5 +131,8 @@ export default {
   .home-btn {
     margin-bottom: 50px;
   }
+}
+.url {
+  margin-top: 100px;
 }
 </style>

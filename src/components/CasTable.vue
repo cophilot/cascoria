@@ -250,18 +250,28 @@ export default {
 <template>
   <div>
     <table>
-      <tr class="sticky name-row">
+      <tr class="sticky name-row print-off">
         <td class="num-td"></td>
         <td v-for="n in getArray()" :key="'n' + n" class="num-td">
           <input
             type="text"
             :placeholder="'P' + n"
-            class="my-input name-input"
+            class="my-input name-input print-off"
             @input="setName(n, $event)"
             :value="names[n - 1]"
           />
         </td>
       </tr>
+      <div class="print-only">
+        <tr class="name-row">
+          <td class="num-td"></td>
+          <td v-for="n in getArray()" :key="'n' + n" class="num-td">
+            <p class="print-only print-label" style="margin-top: 10px">
+              {{ names[n - 1] == '' ? 'P' + n : names[n - 1] }}
+            </p>
+          </td>
+        </tr>
+      </div>
       <tr>
         <td class="icon-td">
           <img src="@/assets/icons/bear.png" alt="Bear" class="icon" />
@@ -271,11 +281,14 @@ export default {
           <input
             type="number"
             placeholder="0"
-            class="my-input"
+            class="my-input print-off"
             :id="'w1' + n"
             @input="setWMatrix(1, n, $event)"
             :value="wMatrix[0][n - 1] == 0 ? '' : wMatrix[0][n - 1]"
           />
+          <p class="print-only print-label">
+            {{ wMatrix[0][n - 1] }}
+          </p>
         </td>
       </tr>
       <tr>
@@ -286,11 +299,14 @@ export default {
           <input
             type="number"
             placeholder="0"
-            class="my-input"
+            class="my-input print-off"
             :id="'w2' + n"
             @input="setWMatrix(2, n, $event)"
             :value="wMatrix[1][n - 1] == 0 ? '' : wMatrix[1][n - 1]"
           />
+          <p class="print-only print-label">
+            {{ wMatrix[1][n - 1] }}
+          </p>
         </td>
       </tr>
       <tr>
@@ -301,11 +317,14 @@ export default {
           <input
             type="number"
             placeholder="0"
-            class="my-input"
+            class="my-input print-off"
             :id="'w3' + n"
             @input="setWMatrix(3, n, $event)"
             :value="wMatrix[2][n - 1] == 0 ? '' : wMatrix[2][n - 1]"
           />
+          <p class="print-only print-label">
+            {{ wMatrix[2][n - 1] }}
+          </p>
         </td>
       </tr>
       <tr>
@@ -316,11 +335,14 @@ export default {
           <input
             type="number"
             placeholder="0"
-            class="my-input"
+            class="my-input print-off"
             :id="'w4' + n"
             @input="setWMatrix(4, n, $event)"
             :value="wMatrix[3][n - 1] == 0 ? '' : wMatrix[3][n - 1]"
           />
+          <p class="print-only print-label">
+            {{ wMatrix[3][n - 1] }}
+          </p>
         </td>
       </tr>
       <tr>
@@ -331,11 +353,14 @@ export default {
           <input
             type="number"
             placeholder="0"
-            class="my-input"
+            class="my-input print-off"
             :id="'w5' + n"
             @input="setWMatrix(5, n, $event)"
             :value="wMatrix[4][n - 1] == 0 ? '' : wMatrix[4][n - 1]"
           />
+          <p class="print-only print-label">
+            {{ wMatrix[4][n - 1] }}
+          </p>
         </td>
       </tr>
       <tr class="sub-divider sub-score">
@@ -343,7 +368,10 @@ export default {
           <img src="@/assets/icons/wildness.png" alt="W" class="icon" />
         </td>
         <td v-for="(n, i) in getWScore" :key="'W' + i" class="num-td">
-          <input type="number" class="my-input" :value="n" disabled />
+          <input type="number" class="my-input print-off" :value="n" disabled />
+          <p class="print-only print-label">
+            {{ n }}
+          </p>
         </td>
       </tr>
       <!-- W-END -->
@@ -360,11 +388,17 @@ export default {
           <input
             type="number"
             placeholder="0"
-            class="my-input"
+            class="my-input print-off"
             :id="'h1' + n"
             @input="setHMatrix(1, n, $event)"
             :value="hMatrix[0][n - 1] == 0 ? '' : hMatrix[0][n - 1]"
           />
+          <p
+            class="print-only print-label"
+            style="margin-top: 0; margin-bottom: -5px"
+          >
+            {{ hMatrix[0][n - 1] }}
+          </p>
           <p
             class="bonus"
             :style="{
@@ -383,11 +417,17 @@ export default {
           <input
             type="number"
             placeholder="0"
-            class="my-input"
+            class="my-input print-off"
             :id="'h2' + n"
             @input="setHMatrix(2, n, $event)"
             :value="hMatrix[1][n - 1] == 0 ? '' : hMatrix[1][n - 1]"
           />
+          <p
+            class="print-only print-label"
+            style="margin-top: 0; margin-bottom: -5px"
+          >
+            {{ hMatrix[1][n - 1] }}
+          </p>
           <p
             class="bonus"
             :style="{
@@ -406,11 +446,17 @@ export default {
           <input
             type="number"
             placeholder="0"
-            class="my-input"
+            class="my-input print-off"
             :id="'h3' + n"
             @input="setHMatrix(3, n, $event)"
             :value="hMatrix[2][n - 1] == 0 ? '' : hMatrix[2][n - 1]"
           />
+          <p
+            class="print-only print-label"
+            style="margin-top: 0; margin-bottom: -5px"
+          >
+            {{ hMatrix[2][n - 1] }}
+          </p>
           <p
             class="bonus"
             :style="{
@@ -429,11 +475,17 @@ export default {
           <input
             type="number"
             placeholder="0"
-            class="my-input"
+            class="my-input print-off"
             :id="'h4' + n"
             @input="setHMatrix(4, n, $event)"
             :value="hMatrix[3][n - 1] == 0 ? '' : hMatrix[3][n - 1]"
           />
+          <p
+            class="print-only print-label"
+            style="margin-top: 0; margin-bottom: -5px"
+          >
+            {{ hMatrix[3][n - 1] }}
+          </p>
           <p
             class="bonus"
             :style="{
@@ -452,11 +504,17 @@ export default {
           <input
             type="number"
             placeholder="0"
-            class="my-input"
+            class="my-input print-off"
             :id="'h5' + n"
             @input="setHMatrix(5, n, $event)"
             :value="hMatrix[4][n - 1] == 0 ? '' : hMatrix[4][n - 1]"
           />
+          <p
+            class="print-only print-label"
+            style="margin-top: 0; margin-bottom: -5px"
+          >
+            {{ hMatrix[4][n - 1] }}
+          </p>
           <p
             class="bonus"
             :style="{
@@ -472,7 +530,10 @@ export default {
           <img src="@/assets/icons/hectare.png" alt="H" class="icon" />
         </td>
         <td v-for="(n, i) in getHScore" :key="'H' + i" class="num-td">
-          <input type="number" class="my-input" :value="n" disabled />
+          <input type="number" class="my-input print-off" :value="n" disabled />
+          <p class="print-only print-label">
+            {{ n }}
+          </p>
         </td>
       </tr>
       <!-- H-END -->
@@ -484,11 +545,14 @@ export default {
           <input
             type="number"
             placeholder="0"
-            class="my-input"
+            class="my-input print-off"
             :id="'C' + n"
             @input="setConeRow(n, $event)"
             :value="coneRow[n - 1] == 0 ? '' : coneRow[n - 1]"
           />
+          <p class="print-only print-label">
+            {{ coneRow[n - 1] }}
+          </p>
         </td>
       </tr>
       <tr class="final-score">
@@ -500,7 +564,10 @@ export default {
           />
         </td>
         <td v-for="(n, i) in getTotalScore" :key="'F' + i" class="num-td">
-          <input type="number" class="my-input" :value="n" disabled />
+          <input type="number" class="my-input print-off" :value="n" disabled />
+          <p class="print-only print-label">
+            {{ n }}
+          </p>
         </td>
       </tr>
     </table>
@@ -525,10 +592,22 @@ export default {
   -moz-appearance: textfield;
   appearance: textfield;
   z-index: 10;
-
   &:focus {
     outline: none;
   }
+}
+.print-label {
+  width: 110%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  z-index: 10;
+  font-size: 22px;
+  opacity: 1;
+  color: black;
+  margin-top: auto;
+  min-width: 100px;
 }
 
 .icon {
@@ -601,7 +680,5 @@ tr {
 }
 .name-row {
   height: 60px;
-}
-.inline-name-row {
 }
 </style>
