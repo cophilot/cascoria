@@ -12,6 +12,11 @@ const router = createRouter({
       path: '/table/:count',
       name: 'table',
       component: () => import('../views/TableView.vue')
+    },
+    {
+      path: '/table/landmarks/:count',
+      name: 'tableExtension',
+      component: () => import('../views/TableView.vue')
     }
   ]
 });

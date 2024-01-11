@@ -34,7 +34,9 @@ export default {
         [0, 0, 0, 0, 0, 0]
       ],
       coneRow: [0, 0, 0, 0, 0, 0],
-      names: ['', '', '', '', '', '']
+      extensionRow: [0, 0, 0, 0, 0, 0],
+      names: ['', '', '', '', '', ''],
+      extensionEnabled: false
     };
   },
   watch: {
@@ -48,10 +50,15 @@ export default {
   },
 
   mounted() {
+    if (this.$route.path.includes('landmarks')) {
+      this.extensionEnabled = true;
+    }
+
     setTimeout(() => {
       const wMatrix = LocalStorageService.get(this.count + 'wMatrix');
       const hMatrix = LocalStorageService.get(this.count + 'hMatrix');
       const coneRow = LocalStorageService.get(this.count + 'coneRow');
+      const extensionRow = LocalStorageService.get(this.count + 'extensionRow');
       const names = LocalStorageService.get(this.count + 'names');
       if (wMatrix) {
         this.wMatrix = JSON.parse(wMatrix);
@@ -61,6 +68,9 @@ export default {
       }
       if (coneRow) {
         this.coneRow = JSON.parse(coneRow);
+      }
+      if (extensionRow) {
+        this.extensionRow = JSON.parse(extensionRow);
       }
       if (names) {
         this.names = JSON.parse(names);
@@ -73,6 +83,7 @@ export default {
       localStorage.removeItem(this.count + 'wMatrix');
       localStorage.removeItem(this.count + 'hMatrix');
       localStorage.removeItem(this.count + 'coneRow');
+      localStorage.removeItem(this.count + 'extensionRow');
       localStorage.removeItem(this.count + 'names');
       this.wMatrix = [
         [0, 0, 0, 0, 0, 0],
@@ -89,6 +100,7 @@ export default {
         [0, 0, 0, 0, 0, 0]
       ];
       this.coneRow = [0, 0, 0, 0, 0, 0];
+      this.extensionRow = [0, 0, 0, 0, 0, 0];
       this.names = ['', '', '', '', '', ''];
     },
 
@@ -124,6 +136,14 @@ export default {
       LocalStorageService.set(
         this.count + 'coneRow',
         JSON.stringify(this.coneRow)
+      );
+    },
+    setExtensionRow(player: number, event: Event) {
+      this.extensionRow[player - 1] =
+        parseInt((event.target as HTMLInputElement).value) || 0;
+      LocalStorageService.set(
+        this.count + 'extensionRow',
+        JSON.stringify(this.extensionRow)
       );
     },
     setName(player: number, event: Event) {
@@ -239,7 +259,12 @@ export default {
     getTotalScore() {
       const result = [];
       for (let i = 0; i < this.count; i++) {
-        result.push(this.getWScore[i] + this.getHScore[i] + this.coneRow[i]);
+        result.push(
+          this.getWScore[i] +
+            this.getHScore[i] +
+            this.coneRow[i] +
+            this.extensionRow[i]
+        );
       }
       return result;
     }
@@ -552,6 +577,28 @@ export default {
           />
           <p class="print-only print-label">
             {{ coneRow[n - 1] }}
+          </p>
+        </td>
+      </tr>
+      <tr class="sub-divider" v-if="extensionEnabled">
+        <td class="icon-td">
+          <img
+            src="@/assets/icons/extension.png"
+            alt="Landmarks"
+            class="icon"
+          />
+        </td>
+        <td v-for="n in getArray()" :key="'C' + n" class="num-td">
+          <input
+            type="number"
+            placeholder="0"
+            class="my-input print-off"
+            :id="'C' + n"
+            @input="setExtensionRow(n, $event)"
+            :value="extensionRow[n - 1] == 0 ? '' : extensionRow[n - 1]"
+          />
+          <p class="print-only print-label">
+            {{ extensionRow[n - 1] }}
           </p>
         </td>
       </tr>
