@@ -57,13 +57,8 @@ export default {
   <button class="btn" @click="goToTable(2)">2 Player</button>
   <button class="btn" @click="goToTable(3)">3 Player</button>
   <button class="btn" @click="goToTable(4)">4 Player</button>
-<<<<<<< HEAD
-  <!--  <button class="btn" @click="goToTable(5)">5 Player</button>
-  <button class="btn" @click="goToTable(6)">6 Player</button> -->
-=======
   <button class="btn" @click="goToTable(5)">5 Player</button>
   <button class="btn" @click="goToTable(6)">6 Player</button>
->>>>>>> 288cb67 (update: Thu 11 Jan 2024 17:57:45 CET)
   <p>By <a href="https://github.com/cophilot" target="_blank">Philipp B.</a></p>
 </template>
 <style scoped lang="scss">
