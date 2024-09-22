@@ -147,7 +147,9 @@ export default {
       );
     },
     setName(player: number, event: Event) {
-      this.names[player - 1] = (event.target as HTMLInputElement).value || '';
+      let name = (event.target as HTMLInputElement).value || '';
+      name = name.toUpperCase();
+      this.names[player - 1] = name;
       LocalStorageService.set(this.count + 'names', JSON.stringify(this.names));
     },
 
@@ -305,6 +307,7 @@ export default {
         <td v-for="n in getArray()" :key="'w1' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'w1' + n"
@@ -323,6 +326,7 @@ export default {
         <td v-for="n in getArray()" :key="'w2' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'w2' + n"
@@ -341,6 +345,7 @@ export default {
         <td v-for="n in getArray()" :key="'w3' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'w3' + n"
@@ -359,6 +364,7 @@ export default {
         <td v-for="n in getArray()" :key="'w4' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'w4' + n"
@@ -377,6 +383,7 @@ export default {
         <td v-for="n in getArray()" :key="'w5' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'w5' + n"
@@ -393,7 +400,13 @@ export default {
           <img src="@/assets/icons/wildness.png" alt="W" class="icon" />
         </td>
         <td v-for="(n, i) in getWScore" :key="'W' + i" class="num-td">
-          <input type="number" class="my-input print-off" :value="n" disabled />
+          <input
+            type="number"
+            inputMode="numeric"
+            class="my-input print-off"
+            :value="n"
+            disabled
+          />
           <p class="print-only print-label">
             {{ n }}
           </p>
@@ -412,6 +425,7 @@ export default {
         <td v-for="n in getArray()" :key="'h1' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'h1' + n"
@@ -441,6 +455,7 @@ export default {
         <td v-for="n in getArray()" :key="'h2' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'h2' + n"
@@ -470,6 +485,7 @@ export default {
         <td v-for="n in getArray()" :key="'h3' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'h3' + n"
@@ -499,6 +515,7 @@ export default {
         <td v-for="n in getArray()" :key="'h4' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'h4' + n"
@@ -528,6 +545,7 @@ export default {
         <td v-for="n in getArray()" :key="'h5' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'h5' + n"
@@ -555,7 +573,13 @@ export default {
           <img src="@/assets/icons/hectare.png" alt="H" class="icon" />
         </td>
         <td v-for="(n, i) in getHScore" :key="'H' + i" class="num-td">
-          <input type="number" class="my-input print-off" :value="n" disabled />
+          <input
+            type="number"
+            inputMode="numeric"
+            class="my-input print-off"
+            :value="n"
+            disabled
+          />
           <p class="print-only print-label">
             {{ n }}
           </p>
@@ -569,6 +593,7 @@ export default {
         <td v-for="n in getArray()" :key="'C' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'C' + n"
@@ -591,6 +616,7 @@ export default {
         <td v-for="n in getArray()" :key="'C' + n" class="num-td">
           <input
             type="number"
+            inputMode="numeric"
             placeholder="0"
             class="my-input print-off"
             :id="'C' + n"
@@ -611,7 +637,13 @@ export default {
           />
         </td>
         <td v-for="(n, i) in getTotalScore" :key="'F' + i" class="num-td">
-          <input type="number" class="my-input print-off" :value="n" disabled />
+          <input
+            type="number"
+            inputMode="numeric"
+            class="my-input print-off"
+            :value="n"
+            disabled
+          />
           <p class="print-only print-label">
             {{ n }}
           </p>
@@ -643,6 +675,7 @@ export default {
     outline: none;
   }
 }
+
 .print-label {
   width: 110%;
   height: 100%;
@@ -700,7 +733,9 @@ tr {
   border-bottom: 2px solid $prim-color;
   border-collapse: separate; /* Don't collapse */
 }
-
+input[type='number'][disabled] {
+  color: black;
+}
 .bonus {
   font-size: 16px;
   padding: 0;
